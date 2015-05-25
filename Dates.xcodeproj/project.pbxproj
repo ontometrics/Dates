@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		02C1BF571B12882F00B45F14 /* Dates.h in Headers */ = {isa = PBXBuildFile; fileRef = 02C1BF561B12882F00B45F14 /* Dates.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02C1BF5D1B12882F00B45F14 /* Dates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C1BF511B12882F00B45F14 /* Dates.framework */; };
-		02C1BF6E1B12885200B45F14 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF6D1B12885200B45F14 /* Date.swift */; };
-		02C1BF701B12886600B45F14 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF6F1B12886600B45F14 /* DateTests.swift */; };
 		02C1BF721B1288BD00B45F14 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF711B1288BD00B45F14 /* SystemClock.swift */; };
+		02C1BF7B1B13726800B45F14 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7A1B13726800B45F14 /* Date.swift */; };
+		02C1BF7D1B13727B00B45F14 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7C1B13727B00B45F14 /* DateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,9 +30,9 @@
 		02C1BF561B12882F00B45F14 /* Dates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dates.h; sourceTree = "<group>"; };
 		02C1BF5C1B12882F00B45F14 /* DatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C1BF621B12882F00B45F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		02C1BF6D1B12885200B45F14 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Date.swift; path = "../../dminder/d-minder/Classes/Date.swift"; sourceTree = "<group>"; };
-		02C1BF6F1B12886600B45F14 /* DateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateTests.swift; path = "../../dminder/d-minderTests/DateTests.swift"; sourceTree = "<group>"; };
 		02C1BF711B1288BD00B45F14 /* SystemClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemClock.swift; path = "../../dminder/d-minder/Classes/SystemClock.swift"; sourceTree = "<group>"; };
+		02C1BF7A1B13726800B45F14 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		02C1BF7C1B13727B00B45F14 /* DateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				02C1BF561B12882F00B45F14 /* Dates.h */,
-				02C1BF6D1B12885200B45F14 /* Date.swift */,
+				02C1BF7A1B13726800B45F14 /* Date.swift */,
 				02C1BF711B1288BD00B45F14 /* SystemClock.swift */,
 				02C1BF541B12882F00B45F14 /* Supporting Files */,
 			);
@@ -94,7 +94,7 @@
 		02C1BF601B12882F00B45F14 /* DatesTests */ = {
 			isa = PBXGroup;
 			children = (
-				02C1BF6F1B12886600B45F14 /* DateTests.swift */,
+				02C1BF7C1B13727B00B45F14 /* DateTests.swift */,
 				02C1BF611B12882F00B45F14 /* Supporting Files */,
 			);
 			path = DatesTests;
@@ -215,8 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C1BF6E1B12885200B45F14 /* Date.swift in Sources */,
 				02C1BF721B1288BD00B45F14 /* SystemClock.swift in Sources */,
+				02C1BF7B1B13726800B45F14 /* Date.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C1BF701B12886600B45F14 /* DateTests.swift in Sources */,
+				02C1BF7D1B13727B00B45F14 /* DateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +410,7 @@
 				02C1BF691B12882F00B45F14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02C1BF6A1B12882F00B45F14 /* Build configuration list for PBXNativeTarget "DatesTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +419,7 @@
 				02C1BF6C1B12882F00B45F14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
