@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		02C1BF571B12882F00B45F14 /* Dates.h in Headers */ = {isa = PBXBuildFile; fileRef = 02C1BF561B12882F00B45F14 /* Dates.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02C1BF5D1B12882F00B45F14 /* Dates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C1BF511B12882F00B45F14 /* Dates.framework */; };
-		02C1BF721B1288BD00B45F14 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF711B1288BD00B45F14 /* SystemClock.swift */; };
 		02C1BF7B1B13726800B45F14 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7A1B13726800B45F14 /* Date.swift */; };
 		02C1BF7D1B13727B00B45F14 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7C1B13727B00B45F14 /* DateTests.swift */; };
+		02C1BF7F1B13783400B45F14 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7E1B13783400B45F14 /* SystemClock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,9 +30,9 @@
 		02C1BF561B12882F00B45F14 /* Dates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dates.h; sourceTree = "<group>"; };
 		02C1BF5C1B12882F00B45F14 /* DatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C1BF621B12882F00B45F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		02C1BF711B1288BD00B45F14 /* SystemClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SystemClock.swift; path = "../../dminder/d-minder/Classes/SystemClock.swift"; sourceTree = "<group>"; };
 		02C1BF7A1B13726800B45F14 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		02C1BF7C1B13727B00B45F14 /* DateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
+		02C1BF7E1B13783400B45F14 /* SystemClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemClock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 			children = (
 				02C1BF561B12882F00B45F14 /* Dates.h */,
 				02C1BF7A1B13726800B45F14 /* Date.swift */,
-				02C1BF711B1288BD00B45F14 /* SystemClock.swift */,
+				02C1BF7E1B13783400B45F14 /* SystemClock.swift */,
 				02C1BF541B12882F00B45F14 /* Supporting Files */,
 			);
 			path = Dates;
@@ -215,8 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C1BF721B1288BD00B45F14 /* SystemClock.swift in Sources */,
 				02C1BF7B1B13726800B45F14 /* Date.swift in Sources */,
+				02C1BF7F1B13783400B45F14 /* SystemClock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
