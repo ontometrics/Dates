@@ -82,6 +82,17 @@ class DateTests: XCTestCase {
         
     }
     
+    func testCanFindSameDayOrNot() {
+        let firstDate = Date(year: 2015, month: 5, day: 1)
+        let secondDate = Date(year: 2015, month: 5, day: 2)
+        
+        let sameAsFirst = Date(year: 2015, month: 5, day: 1)
+        
+        XCTAssertTrue(firstDate.sameDayAs(sameAsFirst))
+        XCTAssertFalse(firstDate.sameDayAs(secondDate))
+        
+    }
+    
     func testCanSubtractDatesAndGetSeconds(){
         let newMoon = Date(year: 1970, month: 1, day: 20, hour: 20, minute: 35)
         let newMoonApril2015 = Date(year: 2015, month: 4, day: 18, hour: 13, minute: 57)

@@ -168,6 +168,10 @@ public class Date : TimeInterval, NSCoding, Equatable, Printable, DebugPrintable
     public func spanFromNow() -> TimeSpan {
         return self - Date()
     }
+    
+    public func sameDayAs(otherDate:Date) -> Bool {
+        return self.year()==otherDate.year() && self.month()==otherDate.month() && self.day()==otherDate.day()
+    }
 
 }
 
