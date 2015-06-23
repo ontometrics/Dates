@@ -208,13 +208,13 @@ class DateTests: XCTestCase {
     
     func testCanGetShortStringForTimeInterval() {
         let now = Date()
-        var start = Date(year: now.year(), month: now.month(), day: now.day(), hour: now.hour() + 3, minute: now.minute() + 30, second: 40)
+        var testDate = now + TimeSpan(hours: 3, minutes: 30)
         
-        XCTAssertEqual(start.spanFromNow().asReadableString(.Medium), "3h 30m")
+        XCTAssertEqual(testDate.spanFromNow().asReadableString(.Medium), "3h 29m")
         
-        start = Date(year: now.year(), month: now.month(), day: now.day(), hour: now.hour(), minute: now.minute() + 30, second: 40)
+        testDate = Date() + TimeSpan(minutes: 30)
         
-        XCTAssertEqual(start.spanFromNow().asReadableString(.Short), "30m")
+        XCTAssertEqual(testDate.spanFromNow().asReadableString(.Short), "29m")
 
     }
     
