@@ -313,16 +313,6 @@ extension Date : MoonPhase {
 
 /*
 
-public class Date : TimeInterval, NSCoding {
-    
-    func add(interval:TimeInterval){
-        offset += interval.offset;
-    }
-    
-    func subtract(interval:TimeInterval){
-        offset -= interval.offset
-    }
-    
     func dateBySettingTime(hour:Int, minute: Int) -> Date{
         let parts:NSDateComponents = NSDateComponents()
         parts.day = day()
@@ -335,21 +325,7 @@ public class Date : TimeInterval, NSCoding {
         let date:NSDate! = calendar.dateFromComponents(parts)
         return Date(offset: Double(date.timeIntervalSince1970))
     }
-    
-
-}
 */
-
-public struct CalendarQuantity {
-    let amount:Int
-    let units:NSCalendarUnit
-    
-    public init(amount:Int, units: NSCalendarUnit){
-        self.amount = amount
-        self.units = units
-    }
-    
-}
 
 extension TimeInterval : Equatable {}
 public func == (lhs:TimeInterval, rhs:TimeInterval) -> Bool {
