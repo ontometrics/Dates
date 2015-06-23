@@ -9,26 +9,266 @@
 import Foundation
 import Darwin
 
-public class TimeInterval : NSObject {
+public protocol Time {
+    var offset:Double {get}
     
-    public var offset:Double
+    static func secondsPerHour() -> Int
+    static func secondsPerDay() -> Int
+    static func secondsPerYear() -> Int
+}
+
+public extension Time {
     
-    public init(offset:Double){
+    static func hoursPerDay() -> Int {
+        return 24
+    }
+    
+    static func minutesPerHour() -> Int {
+        return 60
+    }
+    
+    static func secondsPerMinute() -> Int {
+        return 60
+    }
+    
+    static func daysPerYear() -> Int {
+        return 365
+    }
+    
+    static func secondsPerDay() -> Int {
+        return hoursPerDay() * minutesPerHour() * secondsPerMinute()
+    }
+    
+    static func secondsPerYear() -> Int {
+        return secondsPerDay() * daysPerYear()
+    }
+    
+    static func secondsPerHour() -> Int {
+        return secondsPerMinute() * minutesPerHour()
+    }
+}
+
+public struct TimeInterval : Time {
+    
+    public let offset:Double
+    
+    public init(_ offset:Double){
         self.offset = offset
     }
     
     public func span() -> TimeSpan {
-        return TimeSpan(offset: self.offset)
+        return TimeSpan(offset)
+    }
+}
+
+public struct TimeSpan : Time {
+    
+    public let offset: Double
+    
+    public init(_ offset: Double){
+        self.offset = offset
+    }
+    
+    public init(days:Int = 0, hours:Int = 0, minutes:Int = 0, seconds:Int = 0){
+        let totalSeconds = (days * TimeSpan.secondsPerDay()) + (hours * TimeSpan.secondsPerHour()) + (minutes * TimeSpan.minutesPerHour()) + seconds
+        self.init(Double(totalSeconds))
+    }
+    
+    public func seconds() -> Int {
+        return Int(offset)
+    }
+    
+    public func minutes() -> Int {
+        return Int(offset / Double(TimeSpan.secondsPerMinute()))
+    }
+    
+    public func hours() -> Int {
+        return Int(offset / Double(TimeSpan.secondsPerHour()))
+    }
+    
+    public func days() -> Int {
+        return Int(offset / Double(TimeSpan.secondsPerDay()))
+    }
+    
+    public func years() -> Int {
+        return Int(offset / Double(TimeSpan.secondsPerYear()))
     }
     
 }
 
-func convertToRadians(degrees:Double) -> Double {
-    return (degrees / 180.0 * M_PI)
+public enum FormatType {
+    case Long
+    case Medium
+    case Short
 }
 
-public class Date : TimeInterval, NSCoding, Equatable, Printable, DebugPrintable {
+protocol ReadableString {
+    func asReadableString(type: FormatType) -> String
+}
+
+extension TimeSpan: CustomStringConvertible, CustomDebugStringConvertible, ReadableString {
+    public var description:String {
+        get{
+            return "\(minutes()):\(seconds() - (minutes() * 60))"
+        }
+    }
     
+    public var debugDescription:String {
+        get{
+            return self.description
+        }
+    }
+    
+    public func asReadableString(type: FormatType) -> String {
+        switch type{
+        case .Long:
+            return readableString()
+        case .Medium:
+            return shortReadableString()
+        case .Short:
+            return shortReadableString(false)
+        }
+    }
+    
+    private func readableString() -> String {
+        let totalAsSeconds = seconds()
+        var string = ""
+        switch totalAsSeconds {
+        case 0...60:
+            string = "\(totalAsSeconds) seconds"
+        case 60...TimeSpan.secondsPerHour():
+            string = "\(minutes()) minutes"
+        case TimeSpan.secondsPerHour()...TimeSpan.secondsPerDay():
+            string = "\(hours()) hours"
+        default:
+            string = ""
+        }
+        return string
+    }
+    
+    private func shortReadableString(showSeconds:Bool = true) -> String {
+        let totalAsSeconds = seconds()
+        var string = ""
+        switch totalAsSeconds {
+        case 0...60:
+            string = "\(totalAsSeconds)s"
+        case 60...TimeSpan.secondsPerHour():
+            string = showSeconds ? "\(minutes())m \(seconds() - (minutes() * 60))s" : "\(minutes())m"
+        case TimeSpan.secondsPerHour()...TimeSpan.secondsPerDay():
+            string = "\(hours())h \(minutes() - (hours() * 60))m"
+        default:
+            string = "\(days())d"
+        }
+        return string
+    }
+}
+
+
+public struct Date {
+    public let time: TimeSpan
+    
+    
+    public init(_ offset:Double){
+        time = TimeSpan(offset)
+    }
+
+    public init(_ aTime: TimeSpan){
+        time = aTime
+    }
+
+    public init(){
+        let time:NSDate = SystemClock.now()
+        self.init(time.timeIntervalSince1970)
+    }
+    
+    public init(year:Int, month:Int, day:Int, hour:Int = 0, minute:Int = 0, second:Int = 0,
+        timeZone:NSTimeZone = NSTimeZone.localTimeZone()){
+            let parts:NSDateComponents = NSDateComponents()
+            parts.day = day
+            parts.month = month
+            parts.year = year
+            parts.hour = hour
+            parts.minute = minute
+            parts.second = second
+            parts.timeZone = timeZone
+            
+            let calendar = NSCalendar.currentCalendar()
+            let date:NSDate! = calendar.dateFromComponents(parts)
+            self.init(Double(date.timeIntervalSince1970))
+    }
+    
+    public init(oldDate:NSDate){
+        self.init(oldDate.timeIntervalSince1970)
+    }
+    
+    public func date() -> NSDate {
+        return NSDate(timeIntervalSince1970: time.offset)
+    }
+    
+    private func component(date:Date, calendarUnit:NSCalendarUnit) -> Int {
+        let calendar:NSCalendar = NSCalendar.currentCalendar()
+        return calendar.component(calendarUnit, fromDate: date.date())
+    }
+
+    public func minute() -> Int {
+        return component(self, calendarUnit: .Minute)
+    }
+    
+    public func hour() -> Int {
+        return component(self, calendarUnit: .Hour)
+    }
+    
+    public func day() -> Int {
+        return component(self, calendarUnit: .Day)
+    }
+    
+    public func month() -> Int {
+        return component(self, calendarUnit: .Month)
+    }
+    
+    public func year() -> Int {
+        return component(self, calendarUnit: .Year)
+    }
+    
+    public func spanFromNow() -> TimeSpan {
+        return self - Date()
+    }
+    
+    public func sameDayAs(otherDate:Date) -> Bool {
+        return self.year()==otherDate.year() && self.month()==otherDate.month() && self.day()==otherDate.day()
+    }
+
+}
+
+extension Date : CustomStringConvertible, CustomDebugStringConvertible{
+    public var description:String {
+        get{
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "dd MMM yyyy, HH:mm:ss a "
+            return formatter.stringFromDate(date())
+        }
+    }
+    
+    public var debugDescription:String {
+        get{
+            return self.description
+        }
+    }
+}
+
+extension Double {
+    var toRadian: Double {
+        get{ return (self / 180.0 * M_PI) }
+    }
+}
+protocol MoonPhase {
+    var julianDay: Int {get}
+    var dayOfTheYear: Int { get }
+    var moonPhase: Int {get}
+    
+}
+
+extension Date : MoonPhase {
     public var moonPhase:Int {
         get {
             let yearsSince1900 = year() - 1900
@@ -40,8 +280,8 @@ public class Date : TimeInterval, NSCoding, Equatable, Printable, DebugPrintable
             let asin = 359.2242 + 29.105356 * n
             let am = 306.0253 + 385.816918 * n + 0.010730 * t2
             let xtra = 0.75933 + 1.53058868 * n + ((1.178e-4) - (1.55e-7) * t) * t2;
-            let radiansOfAsin = convertToRadians(asin)
-            let radiansOfAm = convertToRadians(am)
+            let radiansOfAsin = asin.toRadian
+            let radiansOfAm = am.toRadian
             let firstSetValue = 0.1734 - 3.93e-4 * t
             let additionalValue = firstSetValue * sin(radiansOfAsin) - 0.4068 * sin(radiansOfAm)
             let xtra2 = xtra + additionalValue
@@ -58,66 +298,22 @@ public class Date : TimeInterval, NSCoding, Equatable, Printable, DebugPrintable
         get {
             let formatter = NSDateFormatter()
             formatter.dateFormat = "g"
-            return formatter.stringFromDate(self.date()).toInt()!
+            return Int(formatter.stringFromDate(self.date()))!
         }
     }
     
     public var dayOfTheYear:Int {
         get {
             let calendar = NSCalendar.currentCalendar()
-            return calendar.ordinalityOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitYear, forDate: self.date())
+            return calendar.ordinalityOfUnit(NSCalendarUnit.Day, inUnit: NSCalendarUnit.Year, forDate: self.date())
         }
     }
-    
-    override public var description:String {
-        get{
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "dd MMM yyyy, HH:mm:ss a "
-            return formatter.stringFromDate(date())
-        }
-    }
-    
-    public override var debugDescription:String {
-        get{
-            return self.description
-        }
-    }
+}
 
-    public override init(offset:Double){
-        super.init(offset: offset)
-    }
-    
-    required public init(coder aDecoder: NSCoder) {
-        super.init(offset: aDecoder.decodeDoubleForKey("offset"))
-    }
-    
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeDouble(self.offset, forKey: "offset")
-    }
-    
-    public convenience init(){
-        let time:NSDate = SystemClock.now()
-        self.init(offset: time.timeIntervalSince1970)
-    }
-    
-    public convenience init(year:Int, month:Int, day:Int, hour:Int = 0, minute:Int = 0, second:Int = 0,
-        timeZone:NSTimeZone = NSTimeZone.localTimeZone()){
-        var parts:NSDateComponents = NSDateComponents()
-        parts.day = day
-        parts.month = month
-        parts.year = year
-        parts.hour = hour
-        parts.minute = minute
-        parts.second = second
-        parts.timeZone = timeZone
-        let calendar = NSCalendar.currentCalendar()
-        let date:NSDate! = calendar.dateFromComponents(parts)
-        self.init(offset: Double(date.timeIntervalSince1970))
-    }
-    
-    public convenience init(oldDate:NSDate){
-        self.init(offset: oldDate.timeIntervalSince1970)
-    }
+
+/*
+
+public class Date : TimeInterval, NSCoding {
     
     func add(interval:TimeInterval){
         offset += interval.offset;
@@ -128,7 +324,7 @@ public class Date : TimeInterval, NSCoding, Equatable, Printable, DebugPrintable
     }
     
     func dateBySettingTime(hour:Int, minute: Int) -> Date{
-        var parts:NSDateComponents = NSDateComponents()
+        let parts:NSDateComponents = NSDateComponents()
         parts.day = day()
         parts.month = month()
         parts.year = year()
@@ -140,54 +336,9 @@ public class Date : TimeInterval, NSCoding, Equatable, Printable, DebugPrintable
         return Date(offset: Double(date.timeIntervalSince1970))
     }
     
-    public func date() -> NSDate {
-        let calendar:NSCalendar = NSCalendar.currentCalendar()
-        return NSDate(timeIntervalSince1970: offset)
-    }
-    
-    public func minute() -> Int {
-        return Adapter().component(self, calendarUnit: .CalendarUnitMinute)
-    }
-
-    public func hour() -> Int {
-        return Adapter().component(self, calendarUnit: .CalendarUnitHour)
-    }
-
-    public func day() -> Int {
-        return Adapter().component(self, calendarUnit: .CalendarUnitDay)
-    }
-    
-    public func month() -> Int {
-        return Adapter().component(self, calendarUnit: .CalendarUnitMonth)
-    }
-    
-    public func year() -> Int {
-        return Adapter().component(self, calendarUnit: .CalendarUnitYear)
-    }
-    
-    public func spanFromNow() -> TimeSpan {
-        return self - Date()
-    }
-    
-    public func sameDayAs(otherDate:Date) -> Bool {
-        return self.year()==otherDate.year() && self.month()==otherDate.month() && self.day()==otherDate.day()
-    }
 
 }
-
-private class Adapter {
-    
-    func component(date:Date, calendarUnit:NSCalendarUnit) -> Int {
-        let calendar:NSCalendar = NSCalendar.currentCalendar()
-        return calendar.component(calendarUnit, fromDate: convert(date))
-    }
-    
-    func convert(date:Date) -> NSDate {
-        let calendar:NSCalendar = NSCalendar.currentCalendar()
-        return NSDate(timeIntervalSince1970: date.offset)
-    }
-    
-}
+*/
 
 public struct CalendarQuantity {
     let amount:Int
@@ -200,132 +351,19 @@ public struct CalendarQuantity {
     
 }
 
-/**
- * Treating time spans as just 
- */
-class NewTimeSpan {
-
-    let days:Int
-    let hours:Int
-    let minutes:Int
-    let seconds:Int
-    let weeks:Int
-    let months:Int
-    let years:Int
-    
-    init(years:Int = 0, months:Int = 0, weeks:Int = 0, days:Int = 0, hours:Int = 0, minutes:Int = 0, seconds:Int = 0){
-        self.years = years
-        self.months = months
-        self.weeks = weeks
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-    }
-    
+extension TimeInterval : Equatable {}
+public func == (lhs:TimeInterval, rhs:TimeInterval) -> Bool {
+    return lhs.offset == rhs.offset
 }
 
-public class TimeSpan : TimeInterval, Equatable, Printable, DebugPrintable {
-    
-    let hoursPerDay:Int = 24
-    let minutesPerHour:Int = 60
-    let secondsPerMinute:Int = 60
-    let daysPerYear = 365
-    
-    public override var description:String {
-        get{
-            return "\(minutes()):\(seconds() - (minutes() * 60))"
-        }
-    }
-
-    public override var debugDescription:String {
-        get{
-            return self.description
-        }
-    }
-    
-    public override init(offset: Double){
-        super.init(offset: offset)
-    }
-    
-    public convenience init(days:Int = 0, hours:Int = 0, minutes:Int = 0, seconds:Int = 0){
-        self.init(offset: 0)
-        let totalSeconds = (days * secondsPerDay()) + (hours * secondsPerHour()) + (minutes * minutesPerHour) + seconds
-        self.offset = Double(totalSeconds)
-    }
-    
-    func secondsPerDay() -> Int {
-        return self.hoursPerDay * minutesPerHour * secondsPerMinute
-    }
-    
-    func secondsPerYear() -> Int {
-        return secondsPerDay() * daysPerYear
-    }
-
-    func secondsPerHour() -> Int {
-        return secondsPerMinute * minutesPerHour
-    }
-    
-    public func seconds() -> Int {
-        return Int(offset)
-    }
-    
-    public func minutes() -> Int {
-        return Int(offset / Double(secondsPerMinute))
-    }
-    
-    public func hours() -> Int {
-        return Int(offset / Double(secondsPerHour()))
-    }
-
-    public func days() -> Int {
-        return Int(offset / Double(secondsPerDay()))
-    }
-    
-    public func years() -> Int {
-        return Int(offset / Double(secondsPerYear()))
-    }
-    
-    public func shortDescription(showSeconds:Bool = true) -> String {
-        let totalAsSeconds = seconds()
-        var string = ""
-        switch totalAsSeconds {
-        case 0...60:
-            string = "\(totalAsSeconds)s"
-        case 60...secondsPerHour():
-            string = showSeconds ? "\(minutes())m \(seconds() - (minutes() * 60))s" : "\(minutes())m"            
-        case secondsPerHour()...secondsPerDay():
-            string = "\(hours())h \(minutes() - (hours() * 60))m"
-        default:
-            string = "\(days())d"
-        }
-        return string
-    }
-    
-    public func asReadableString() -> String {
-        let totalAsSeconds = seconds()
-        var string = ""
-        switch totalAsSeconds {
-        case 0...60:
-            string = "\(totalAsSeconds) seconds"
-        case 60...secondsPerHour():
-            string = "\(minutes()) minutes"
-        case secondsPerHour()...secondsPerDay():
-            string = "\(hours()) hours"
-        default:
-            string = ""
-        }
-        return string
-    }
-    
-}
-
-public func == (lhs:Date, rhs:Date) -> Bool {
-    return lhs.offset==rhs.offset
-}
-
+extension TimeSpan : Equatable {}
 public func == (lhs:TimeSpan, rhs:TimeSpan) -> Bool {
     return lhs.offset==rhs.offset
+}
+
+extension Date: Equatable {}
+public func == (lhs:Date, rhs:Date) -> Bool {
+    return lhs.time==rhs.time
 }
 
 public func < (left:Date, right:Date) -> Bool {
@@ -341,32 +379,28 @@ public func >= (left:Date, right:Date) -> Bool {
 }
 
 public func - (left:Date, right:Date) -> TimeSpan {
-    return TimeSpan(offset: left.date().timeIntervalSinceDate(right.date()))
+    return TimeSpan(left.date().timeIntervalSinceDate(right.date()))
 }
 
-public func + (left:Date, right:TimeInterval) -> Date {
-    return Date(offset: left.offset + right.offset)
+public func + (left:Date, right:Time) -> Date {
+    return Date(left.time.offset + right.offset)
+}
+
+//public func += (left:Date, right:TimeInterval) -> Date {
+//    left = left.add(right)
+//    return left
+//}
+
+public func - (left:Date, right:Time) -> Date {
+    return Date(left.time.offset - right.offset)
 }
 
 public func + (left:TimeSpan, right:TimeSpan) -> TimeSpan {
-    return TimeSpan(offset: left.offset + right.offset)
-}
-
-public func + (left:Date, calendarAmount:CalendarQuantity) -> Date {
-    return Date(oldDate: NSCalendar.currentCalendar().dateByAddingUnit(calendarAmount.units, value: calendarAmount.amount, toDate: NSDate(), options: nil)!)
-}
-
-public func += (left:Date, right:TimeInterval) -> Date {
-    left.add(right)
-    return left
-}
-
-public func - (left:Date, right:TimeInterval) -> Date {
-    return Date(offset: left.offset - right.offset)
+    return TimeSpan(left.offset + right.offset)
 }
 
 public func - (left:TimeSpan, right:TimeSpan) -> TimeSpan {
-    return TimeSpan(offset: left.offset - right.offset)
+    return TimeSpan(left.offset - right.offset)
 }
 
 

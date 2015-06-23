@@ -35,7 +35,7 @@ class SystemClock: NSObject {
     }
     
     private class func dateForSpecificDay() -> NSDate {
-        var parts:NSDateComponents = NSDateComponents()
+        let parts:NSDateComponents = NSDateComponents()
         parts.day = specificDay["day"]!
         parts.month = specificDay["month"]!
         parts.year = specificDay["year"]!
@@ -55,7 +55,7 @@ class SystemClock: NSObject {
         let filteredArgs = args.filteredArrayUsingPredicate(NSPredicate(format: "SELF contains[cd] %@", "simulationTimeInterval"))
         if(filteredArgs.count > 0){
             if let arg = filteredArgs[0] as? NSString {
-                let value : NSString = arg.componentsSeparatedByString("=")[1] as! NSString
+                let value : NSString = arg.componentsSeparatedByString("=")[1] as NSString
                 let shift = value.doubleValue * 60 * 60
                 return NSDate(timeIntervalSinceNow: shift)
             }

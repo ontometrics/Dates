@@ -36,14 +36,6 @@ class DateTests: XCTestCase {
         
     }
     
-    func testCanAddCalendarAmount() {
-        
-        let twoDaysFromNow = Date() + CalendarQuantity(amount: 2, units: NSCalendarUnit.CalendarUnitDay);
-        
-        NSLog("two days ago: \(twoDaysFromNow)")
-
-    }
-    
     func testCanGetComponents() {
 
         NSLog("day: %d of month: %d", today.day(), today.month())
@@ -70,11 +62,10 @@ class DateTests: XCTestCase {
     
     func testCanSubtractTwoDatesAndGetElapsedTime(){
         let now = Date()
-        let interval = TimeSpan(offset: 60 * 5)
+        let interval = TimeSpan(60 * 5)
         let later = now + interval
         
         let timeToThen = later - now
-        let timeToThenFromDate = later - Date()
         
         XCTAssertEqual(timeToThen, interval, "Interval should be the different between then and now.")
         
@@ -156,7 +147,6 @@ class DateTests: XCTestCase {
     }
     
     func testCanAddTimeIntervalsToDates() {
-        let secondsPerDay:Double = 60 * 60 * 24
         let twoDays = TimeSpan(days: 2)
         
         let dayAfterTomorrow = today + twoDays
@@ -192,7 +182,7 @@ class DateTests: XCTestCase {
         
         NSLog("start: \(start.description) 2h before: \(twoHoursBefore.description)")
         
-        XCTAssertGreaterThan(start.offset, twoHoursBefore.offset, "Offset should have descreased after subtraction of interval.")
+        XCTAssertGreaterThan(start.time.offset, twoHoursBefore.time.offset, "time should have descreased after subtraction of interval.")
         
     }
     
@@ -201,16 +191,16 @@ class DateTests: XCTestCase {
         let start = Date(year: 2015, month: 4, day: 15, hour: 8, minute: 0, second: 0)
         let inAFewHours = Date(year: 2015, month: 4, day: 15, hour: 10, minute: 0, second: 0)
         
-        println((inAFewHours - start).asReadableString())
+        print((inAFewHours - start).asReadableString(.Long))
         
     }
     
     func testCanGetIntervalFromNow() {
         let futureDate = Date() + TimeSpan(hours: 3)
         
-        let spanFromNowAsString = futureDate.spanFromNow().asReadableString()
+        let spanFromNowAsString = futureDate.spanFromNow().asReadableString(.Long)
         
-        println("span from now: \(spanFromNowAsString)")
+        print("span from now: \(spanFromNowAsString)")
         
         XCTAssert(spanFromNowAsString.contains("2 hours"))
         
@@ -218,14 +208,13 @@ class DateTests: XCTestCase {
     
     func testCanGetShortStringForTimeInterval() {
         let now = Date()
-        let seconds = now.span().seconds() - (now.span().minutes() * 60)
         var start = Date(year: now.year(), month: now.month(), day: now.day(), hour: now.hour() + 3, minute: now.minute() + 30, second: 40)
         
-        XCTAssertEqual(start.spanFromNow().shortDescription(), "3h 30m")
+        XCTAssertEqual(start.spanFromNow().asReadableString(.Medium), "3h 30m")
         
         start = Date(year: now.year(), month: now.month(), day: now.day(), hour: now.hour(), minute: now.minute() + 30, second: 40)
         
-        XCTAssertEqual(start.spanFromNow().shortDescription(showSeconds: false), "30m")
+        XCTAssertEqual(start.spanFromNow().asReadableString(.Short), "30m")
 
     }
     
@@ -234,7 +223,7 @@ class DateTests: XCTestCase {
         let newMoonApril2015 = Date(year: 2015, month: 4, day: 18, hour: 20, minute: 35)
         let fullMoonApril2015 = newMoonApril2015 - TimeSpan(days: 14)
         
-        println("new moon april 2015: \(newMoonApril2015)")
+        print("new moon april 2015: \(newMoonApril2015)")
         
         let newMoonPhase = newMoonApril2015.moonPhase
         
@@ -262,7 +251,7 @@ class DateTests: XCTestCase {
         
         let julianDayForAprilFullMoon = fullMoonApril.julianDay
         
-        println("julian day for April 4, 2015: \(julianDayForAprilFullMoon)")
+        print("julian day for April 4, 2015: \(julianDayForAprilFullMoon)")
         
     }
     
@@ -271,7 +260,7 @@ class DateTests: XCTestCase {
         
         let dayOfTheYear = referenceDate.dayOfTheYear
         
-        println("day of the year for \(referenceDate): \(dayOfTheYear)")
+        print("day of the year for \(referenceDate): \(dayOfTheYear)")
         
         XCTAssertEqual(dayOfTheYear, 130)
         
