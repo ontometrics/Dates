@@ -209,7 +209,7 @@ public struct Date {
         let calendar:NSCalendar = NSCalendar.currentCalendar()
         return calendar.component(calendarUnit, fromDate: date.date())
     }
-
+    
     public func minute() -> Int {
         return component(self, calendarUnit: .Minute)
     }
@@ -362,10 +362,9 @@ public func + (left:Date, right:Time) -> Date {
     return Date(left.time.offset + right.offset)
 }
 
-//public func += (left:Date, right:TimeInterval) -> Date {
-//    left = left.add(right)
-//    return left
-//}
+public func += (left:Date, right:Time) -> Date {
+    return left + right
+}
 
 public func - (left:Date, right:Time) -> Date {
     return Date(left.time.offset - right.offset)
