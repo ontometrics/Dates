@@ -209,7 +209,7 @@ public struct Date {
         let calendar:NSCalendar = NSCalendar.currentCalendar()
         return calendar.component(calendarUnit, fromDate: date.date())
     }
-
+    
     public func minute() -> Int {
         return component(self, calendarUnit: .Minute)
     }
@@ -237,6 +237,20 @@ public struct Date {
     public func sameDayAs(otherDate:Date) -> Bool {
         return self.year()==otherDate.year() && self.month()==otherDate.month() && self.day()==otherDate.day()
     }
+    
+    func dateBySettingTime(hour:Int, minute: Int) -> Date{
+        let parts:NSDateComponents = NSDateComponents()
+        parts.day = day()
+        parts.month = month()
+        parts.year = year()
+        parts.hour = hour
+        parts.minute = minute
+        parts.second = 0
+        let calendar:NSCalendar = NSCalendar.currentCalendar()
+        let date:NSDate! = calendar.dateFromComponents(parts)
+        return Date(Double(date.timeIntervalSince1970))
+    }
+
 
 }
 
@@ -310,23 +324,6 @@ extension Date : MoonPhase {
     }
 }
 
-
-/*
-
-    func dateBySettingTime(hour:Int, minute: Int) -> Date{
-        let parts:NSDateComponents = NSDateComponents()
-        parts.day = day()
-        parts.month = month()
-        parts.year = year()
-        parts.hour = hour
-        parts.minute = minute
-        parts.second = 0
-        let calendar:NSCalendar = NSCalendar.currentCalendar()
-        let date:NSDate! = calendar.dateFromComponents(parts)
-        return Date(offset: Double(date.timeIntervalSince1970))
-    }
-*/
-
 extension TimeInterval : Equatable {}
 public func == (lhs:TimeInterval, rhs:TimeInterval) -> Bool {
     return lhs.offset == rhs.offset
@@ -362,8 +359,8 @@ public func + (left:Date, right:Time) -> Date {
     return Date(left.time.offset + right.offset)
 }
 
-public func += (left:Date, right:TimeSpan) -> Date {
-    return Date(left.time.offset + right.offset)
+public func += (left:Date, right:Time) -> Date {
+    return left + right
 }
 
 public func - (left:Date, right:Time) -> Date {
