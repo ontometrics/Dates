@@ -163,7 +163,6 @@ extension TimeSpan: CustomStringConvertible, CustomDebugStringConvertible, Reada
     }
 }
 
-
 public struct Date {
     public let time: TimeSpan
     
