@@ -9,7 +9,7 @@
 import Foundation
 
 @objc
-class SystemClock {
+class SystemClock : NSObject {
     
     static var shift:Double = 0
     static var useSpecificDate = false //turn this to true to use the date in specificDay property
