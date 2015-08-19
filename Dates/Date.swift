@@ -237,7 +237,7 @@ public struct Date {
         return self.year()==otherDate.year() && self.month()==otherDate.month() && self.day()==otherDate.day()
     }
     
-    func dateBySettingTime(hour:Int, minute: Int) -> Date{
+    public func dateBySettingTime(hour:Int, minute: Int) -> Date{
         let parts:NSDateComponents = NSDateComponents()
         parts.day = day()
         parts.month = month()
