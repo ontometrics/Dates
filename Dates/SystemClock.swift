@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc
+
 class SystemClock {
     
     static var shift:Double = 0
