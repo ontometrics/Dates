@@ -163,7 +163,9 @@ extension TimeSpan: CustomStringConvertible, CustomDebugStringConvertible, Reada
     }
 }
 
-public struct Date {
+
+@objc
+public class Date : NSObject {
     public let time: TimeSpan
     
     
@@ -175,12 +177,12 @@ public struct Date {
         time = aTime
     }
 
-    public init(){
+    public override convenience init(){
         let time:NSDate = SystemClock.now()
         self.init(time.timeIntervalSince1970)
     }
     
-    public init(year:Int, month:Int, day:Int, hour:Int = 0, minute:Int = 0, second:Int = 0,
+    public convenience init(year:Int, month:Int, day:Int, hour:Int = 0, minute:Int = 0, second:Int = 0,
         timeZone:NSTimeZone = NSTimeZone.localTimeZone()){
             let parts:NSDateComponents = NSDateComponents()
             parts.day = day
@@ -196,7 +198,7 @@ public struct Date {
             self.init(Double(date.timeIntervalSince1970))
     }
     
-    public init(oldDate:NSDate){
+    public convenience init(oldDate:NSDate){
         self.init(oldDate.timeIntervalSince1970)
     }
     
@@ -207,6 +209,10 @@ public struct Date {
     private func component(date:Date, calendarUnit:NSCalendarUnit) -> Int {
         let calendar:NSCalendar = NSCalendar.currentCalendar()
         return calendar.component(calendarUnit, fromDate: date.date())
+    }
+    
+    public func exactHour() -> Double {
+        return Double(hour()) + Double(minute()) / 60
     }
     
     public func minute() -> Int {
@@ -228,7 +234,11 @@ public struct Date {
     public func year() -> Int {
         return component(self, calendarUnit: .Year)
     }
-    
+
+    public func nextDay() -> Date {
+        return self + TimeSpan(days: 1)
+    }
+
     public func spanFromNow() -> TimeSpan {
         return self - Date()
     }
@@ -253,8 +263,8 @@ public struct Date {
 
 }
 
-extension Date : CustomStringConvertible, CustomDebugStringConvertible{
-    public var description:String {
+extension Date : CustomDebugStringConvertible{
+    public override var description:String {
         get{
             let formatter = NSDateFormatter()
             formatter.dateFormat = "dd MMM yyyy, HH:mm:ss a "
@@ -262,7 +272,7 @@ extension Date : CustomStringConvertible, CustomDebugStringConvertible{
         }
     }
     
-    public var debugDescription:String {
+    public override var debugDescription:String {
         get{
             return self.description
         }
@@ -333,7 +343,6 @@ public func == (lhs:TimeSpan, rhs:TimeSpan) -> Bool {
     return lhs.offset==rhs.offset
 }
 
-extension Date: Equatable {}
 public func == (lhs:Date, rhs:Date) -> Bool {
     return lhs.time==rhs.time
 }
