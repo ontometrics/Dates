@@ -167,14 +167,16 @@ extension TimeSpan: CustomStringConvertible, CustomDebugStringConvertible, Reada
 @objc
 public class Date : NSObject {
     public let time: TimeSpan
+    public let timeZone: NSTimeZone
     
-    
-    public init(_ offset:Double){
+    public init(_ offset:Double, _ timeZone:NSTimeZone = NSTimeZone.defaultTimeZone()){
         time = TimeSpan(offset)
+        self.timeZone = timeZone
     }
 
-    public init(_ aTime: TimeSpan){
+    public init(_ aTime: TimeSpan, _ timeZone:NSTimeZone = NSTimeZone.defaultTimeZone()){
         time = aTime
+        self.timeZone = timeZone
     }
 
     public override convenience init(){
@@ -195,7 +197,7 @@ public class Date : NSObject {
             
             let calendar = NSCalendar.currentCalendar()
             let date:NSDate! = calendar.dateFromComponents(parts)
-            self.init(Double(date.timeIntervalSince1970))
+            self.init(Double(date.timeIntervalSince1970), timeZone)
     }
     
     public convenience init(oldDate:NSDate){
@@ -207,7 +209,8 @@ public class Date : NSObject {
     }
     
     private func component(date:Date, calendarUnit:NSCalendarUnit) -> Int {
-        let calendar:NSCalendar = NSCalendar.currentCalendar()
+        let calendar:NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        calendar.timeZone = timeZone
         return calendar.component(calendarUnit, fromDate: date.date())
     }
     
