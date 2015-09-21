@@ -367,7 +367,7 @@ public func - (left:Date, right:Date) -> TimeSpan {
 }
 
 public func + (left:Date, right:Time) -> Date {
-    return Date(left.time.offset + right.offset)
+    return Date(left.time.offset + right.offset, left.timeZone)
 }
 
 public func += (left:Date, right:Time) -> Date {
