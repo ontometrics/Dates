@@ -18,10 +18,6 @@ class SystemClock {
     static func now() -> NSDate {
         #if (arch(i386) || arch(x86_64)) && os(iOS)
             
-            if let date = dateForSimulationTime() where useSpecificDate == false {
-                return date
-            }
-            
             if (useSpecificDate){
                 return dateForSpecificDay()
             }else{
@@ -46,21 +42,4 @@ class SystemClock {
         let calendar = NSCalendar.currentCalendar()
         return calendar.dateFromComponents(parts)!
     }
-    
-    /**
-    * Date by adding timeInterval from run arguments
-    */
-    private static func dateForSimulationTime() -> NSDate? {
-        let args = NSArray(array:NSProcessInfo.processInfo().arguments)
-        let filteredArgs = args.filteredArrayUsingPredicate(NSPredicate(format: "SELF contains[cd] %@", "simulationTimeInterval"))
-        if(filteredArgs.count > 0){
-            if let arg = filteredArgs[0] as? NSString {
-                let value : NSString = arg.componentsSeparatedByString("=")[1] as NSString
-                let shift = value.doubleValue * 60 * 60
-                return NSDate(timeIntervalSinceNow: shift)
-            }
-        }
-        return nil
-    }
-
 }
