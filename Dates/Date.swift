@@ -179,7 +179,7 @@ public class Date : NSObject {
         self.timeZone = timeZone
     }
 
-    public override convenience init(){
+    public convenience init(timeZone:NSTimeZone = NSTimeZone.defaultTimeZone()){
         let time:NSDate = SystemClock.now()
         self.init(time.timeIntervalSince1970)
     }
@@ -200,8 +200,8 @@ public class Date : NSObject {
             self.init(Double(date.timeIntervalSince1970), timeZone)
     }
     
-    public convenience init(oldDate:NSDate){
-        self.init(oldDate.timeIntervalSince1970)
+    public convenience init(nsDate:NSDate, timeZone: NSTimeZone = NSTimeZone.localTimeZone()){
+        self.init(nsDate.timeIntervalSince1970, timeZone)
     }
     
     public func date() -> NSDate {
