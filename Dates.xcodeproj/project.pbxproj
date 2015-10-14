@@ -12,6 +12,9 @@
 		02C1BF7B1B13726800B45F14 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7A1B13726800B45F14 /* Date.swift */; };
 		02C1BF7D1B13727B00B45F14 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7C1B13727B00B45F14 /* DateTests.swift */; };
 		02C1BF7F1B13783400B45F14 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7E1B13783400B45F14 /* SystemClock.swift */; };
+		AC5A498C1BCEE68D00C8C1E8 /* Dates (watchOS).h in Headers */ = {isa = PBXBuildFile; fileRef = AC5A49851BCEE4CC00C8C1E8 /* Dates (watchOS).h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC5A498D1BCEE6A000C8C1E8 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7A1B13726800B45F14 /* Date.swift */; };
+		AC5A498E1BCEE6A000C8C1E8 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7E1B13783400B45F14 /* SystemClock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 		02C1BF7A1B13726800B45F14 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		02C1BF7C1B13727B00B45F14 /* DateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
 		02C1BF7E1B13783400B45F14 /* SystemClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemClock.swift; sourceTree = "<group>"; };
+		AC5A49831BCEE4CC00C8C1E8 /* DatesWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DatesWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC5A49851BCEE4CC00C8C1E8 /* Dates (watchOS).h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dates (watchOS).h"; sourceTree = "<group>"; };
+		AC5A49871BCEE4CC00C8C1E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC5A497F1BCEE4CC00C8C1E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -59,6 +72,7 @@
 			children = (
 				02C1BF531B12882F00B45F14 /* Dates */,
 				02C1BF601B12882F00B45F14 /* DatesTests */,
+				AC5A49841BCEE4CC00C8C1E8 /* Dates (watchOS) */,
 				02C1BF521B12882F00B45F14 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +82,7 @@
 			children = (
 				02C1BF511B12882F00B45F14 /* Dates.framework */,
 				02C1BF5C1B12882F00B45F14 /* DatesTests.xctest */,
+				AC5A49831BCEE4CC00C8C1E8 /* DatesWatch.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +123,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AC5A49841BCEE4CC00C8C1E8 /* Dates (watchOS) */ = {
+			isa = PBXGroup;
+			children = (
+				AC5A49851BCEE4CC00C8C1E8 /* Dates (watchOS).h */,
+				AC5A49871BCEE4CC00C8C1E8 /* Info.plist */,
+			);
+			path = "Dates (watchOS)";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -116,6 +140,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				02C1BF571B12882F00B45F14 /* Dates.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5A49801BCEE4CC00C8C1E8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5A498C1BCEE68D00C8C1E8 /* Dates (watchOS).h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +190,24 @@
 			productReference = 02C1BF5C1B12882F00B45F14 /* DatesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		AC5A49821BCEE4CC00C8C1E8 /* Dates (watchOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC5A498A1BCEE4CC00C8C1E8 /* Build configuration list for PBXNativeTarget "Dates (watchOS)" */;
+			buildPhases = (
+				AC5A497E1BCEE4CC00C8C1E8 /* Sources */,
+				AC5A497F1BCEE4CC00C8C1E8 /* Frameworks */,
+				AC5A49801BCEE4CC00C8C1E8 /* Headers */,
+				AC5A49811BCEE4CC00C8C1E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dates (watchOS)";
+			productName = "Dates (watchOS)";
+			productReference = AC5A49831BCEE4CC00C8C1E8 /* DatesWatch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,6 +225,9 @@
 					02C1BF5B1B12882F00B45F14 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
+					AC5A49821BCEE4CC00C8C1E8 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 				};
 			};
 			buildConfigurationList = 02C1BF4B1B12882F00B45F14 /* Build configuration list for PBXProject "Dates" */;
@@ -191,6 +244,7 @@
 			targets = (
 				02C1BF501B12882F00B45F14 /* Dates */,
 				02C1BF5B1B12882F00B45F14 /* DatesTests */,
+				AC5A49821BCEE4CC00C8C1E8 /* Dates (watchOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -204,6 +258,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		02C1BF5A1B12882F00B45F14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5A49811BCEE4CC00C8C1E8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -227,6 +288,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				02C1BF7D1B13727B00B45F14 /* DateTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5A497E1BCEE4CC00C8C1E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5A498D1BCEE6A000C8C1E8 /* Date.swift in Sources */,
+				AC5A498E1BCEE6A000C8C1E8 /* SystemClock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +472,47 @@
 			};
 			name = Release;
 		};
+		AC5A49881BCEE4CC00C8C1E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Dates (watchOS)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ontometrics.Dates--watchOS-";
+				PRODUCT_MODULE_NAME = DatesWatch;
+				PRODUCT_NAME = DatesWatch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		AC5A49891BCEE4CC00C8C1E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Dates (watchOS)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ontometrics.Dates--watchOS-";
+				PRODUCT_MODULE_NAME = DatesWatch;
+				PRODUCT_NAME = DatesWatch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -431,6 +542,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		AC5A498A1BCEE4CC00C8C1E8 /* Build configuration list for PBXNativeTarget "Dates (watchOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC5A49881BCEE4CC00C8C1E8 /* Debug */,
+				AC5A49891BCEE4CC00C8C1E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
