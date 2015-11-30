@@ -8,9 +8,11 @@ Should be simple:
 
 ### Carthage
 You can use [Carthage](https://github.com/Carthage/Carthage) to install the framework by adding it to your `Cartfile`:
+
 ```
 github "ontometrics/Dates"
 ```
+
 ### Manual
 1. clone this repository
 1. find the xcode project in Finder and drag and drop to workspace
