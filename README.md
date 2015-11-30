@@ -6,6 +6,12 @@ Was going to make this a [Cocoapod](https://cocoapods.org/) but decided against 
 ## Adding the Framework to a Project
 Should be simple:
 
+### Carthage
+You can use [Carthage](https://github.com/Carthage/Carthage) to install the framework by adding it to your `Cartfile`:
+```
+github "ontometrics/Dates"
+```
+### Manual
 1. clone this repository
 1. find the xcode project in Finder and drag and drop to workspace
 1. add your app to depend on the framework
