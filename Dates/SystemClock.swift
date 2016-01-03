@@ -16,8 +16,8 @@ class SystemClock : NSObject {
     static var specificDay:Dictionary<String, Int> = ["day": 2, "month": 12, "year": 2015, "hour": 12, "minute": 30]
     
     static func now() -> NSDate {
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
-            
+        #if (arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS))
+        
             if (useSpecificDate){
                 return dateForSpecificDay()
             }else{
