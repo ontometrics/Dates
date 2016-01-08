@@ -385,6 +385,10 @@ public func + (left:TimeSpan, right:TimeSpan) -> TimeSpan {
     return TimeSpan(left.offset + right.offset)
 }
 
+public func - (left:Date, right:TimeSpan) -> Date {
+    return Date(left.time.offset - right.offset)
+}
+
 public func - (left:TimeSpan, right:TimeSpan) -> TimeSpan {
     return TimeSpan(left.offset - right.offset)
 }
