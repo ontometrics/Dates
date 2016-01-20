@@ -11,7 +11,7 @@ import Foundation
 @objc
 class SystemClock : NSObject {
     
-    static var shift:Double = 3
+    static var shift:Double = -10
     static var useSpecificDate = false //turn this to true to use the date in specificDay property
     static var specificDay:Dictionary<String, Int> = ["day": 2, "month": 12, "year": 2015, "hour": 12, "minute": 30]
     
