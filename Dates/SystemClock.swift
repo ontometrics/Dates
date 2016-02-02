@@ -12,7 +12,7 @@ import Foundation
 class SystemClock : NSObject {
     
     static var shift:Double = 0
-    static var useSpecificDate = true //turn this to true to use the date in specificDay property
+    static var useSpecificDate = false //turn this to true to use the date in specificDay property
     static var specificDay:Dictionary<String, Int> = ["day": 30, "month": 1, "year": 2016, "hour": 11, "minute": 55 ]
     
     static func now() -> NSDate {
