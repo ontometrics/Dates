@@ -13,6 +13,8 @@
 		02C1BF7D1B13727B00B45F14 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7C1B13727B00B45F14 /* DateTests.swift */; };
 		02C1BF7F1B13783400B45F14 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7E1B13783400B45F14 /* SystemClock.swift */; };
 		AC3A90A91C7E269C000C2A3F /* DatesOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = AC3A90A81C7E269C000C2A3F /* DatesOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC3A90B01C7E2BEB000C2A3F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7A1B13726800B45F14 /* Date.swift */; };
+		AC3A90B11C7E2BFC000C2A3F /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7E1B13783400B45F14 /* SystemClock.swift */; };
 		AC5A498C1BCEE68D00C8C1E8 /* Dates (watchOS).h in Headers */ = {isa = PBXBuildFile; fileRef = AC5A49851BCEE4CC00C8C1E8 /* Dates (watchOS).h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC5A498D1BCEE6A000C8C1E8 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7A1B13726800B45F14 /* Date.swift */; };
 		AC5A498E1BCEE6A000C8C1E8 /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C1BF7E1B13783400B45F14 /* SystemClock.swift */; };
@@ -354,6 +356,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC3A90B01C7E2BEB000C2A3F /* Date.swift in Sources */,
+				AC3A90B11C7E2BFC000C2A3F /* SystemClock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +672,7 @@
 				AC3A90AC1C7E269C000C2A3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AC5A498A1BCEE4CC00C8C1E8 /* Build configuration list for PBXNativeTarget "Dates (watchOS)" */ = {
 			isa = XCConfigurationList;
