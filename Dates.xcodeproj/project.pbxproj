@@ -489,7 +489,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ontometrics.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -510,7 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ontometrics.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -560,7 +560,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ontometrics.DatesOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -583,7 +583,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ontometrics.DatesOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -606,7 +606,7 @@
 				PRODUCT_MODULE_NAME = DatesWatch;
 				PRODUCT_NAME = DatesWatch;
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -629,7 +629,7 @@
 				PRODUCT_MODULE_NAME = DatesWatch;
 				PRODUCT_NAME = DatesWatch;
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
