@@ -23,7 +23,12 @@ class SystemsClockTests : XCTestCase {
         
         let systemClock = SystemsClock(offset: TimeSpan(hours: -1))
         
-        XCTAssertTrue(systemClock.currentTime < Date())
+        let currentTimeFromSystem = systemClock.currentTime
+        XCTAssertTrue(currentTimeFromSystem < Date())
+        
+        // should not return the same time on subsequent calls...
+        XCTAssertNotEqual(currentTimeFromSystem, systemClock.currentTime)
+        XCTAssertTrue(systemClock.currentTime > currentTimeFromSystem)
         
         
         
