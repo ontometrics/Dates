@@ -30,7 +30,7 @@ class OffsetTimeKeeper : Clock {
     
     var currentTime:Date {
         get {
-            return Date() + offset
+            return Date().systemTime() + offset
         }
     }
     

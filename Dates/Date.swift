@@ -211,6 +211,10 @@ public class Date : NSObject {
         return NSDate(timeIntervalSince1970: time.offset)
     }
     
+    public func systemTime() -> Date {
+        return Date()
+    }
+    
     private func component(date:Date, calendarUnit:NSCalendarUnit) -> Int {
         let calendar:NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         calendar.timeZone = timeZone
