@@ -269,7 +269,7 @@ public class Date : NSObject {
         let date:NSDate! = calendar.dateFromComponents(parts)
         return Date(Double(date.timeIntervalSince1970))
     }
-
+    
 
 }
 

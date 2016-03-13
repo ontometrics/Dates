@@ -265,6 +265,24 @@ class DateTests: XCTestCase {
         XCTAssertEqual(dayOfTheYear, 130)
         
     }
+    
+    func testCanDetectTimeChange() {
+        let dayBeforeDaylightSaving = Date(year: 2016, month: 3, day: 13)
+        let dayOfDaylightSaving = Date(year: 2016, month: 3, day: 14)
+        let timezone = NSTimeZone.defaultTimeZone()
+        
+        print("timezone: \(timezone)")
+        print("isDaylightSavings for daybefore: \(timezone.isDaylightSavingTimeForDate(dayBeforeDaylightSaving.date()))")
+        print("isDaylightSavings for dayOf: \(timezone.isDaylightSavingTimeForDate(dayOfDaylightSaving.date()))")
+        
+        
+        // Another method see when the next change is, relative to a date...
+        
+        let nextChangeEvent = timezone.nextDaylightSavingTimeTransitionAfterDate(dayBeforeDaylightSaving.date())
+        
+        print("next change after: \(dayBeforeDaylightSaving) is \(nextChangeEvent)")
+        
+    }
    
     
 
