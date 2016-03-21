@@ -410,4 +410,17 @@ public func > (left:TimeSpan, right:Int) -> Bool {
     return left.offset > 0
 }
 
+public func > (left:TimeSpan, right:TimeSpan) -> Bool {
+    return left.offset > right.offset
+}
+
+public func delay(delay:TimeSpan, closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(Double(delay.seconds()) * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}
+
 

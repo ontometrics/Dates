@@ -206,6 +206,16 @@ class DateTests: XCTestCase {
         
     }
     
+    func testDelay() {
+        let start = Date()
+        let twoSeconds = TimeSpan(seconds: 2)
+        
+        delay(twoSeconds){
+            XCTAssertTrue(Date() - start > twoSeconds)
+        }
+        
+    }
+    
     func testCanGetShortStringForTimeInterval() {
         let now = Date()
         var testDate = now + TimeSpan(hours: 3, minutes: 30)
