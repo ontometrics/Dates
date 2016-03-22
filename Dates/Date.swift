@@ -273,7 +273,7 @@ public class Date : NSObject {
 
 }
 
-extension Date : CustomDebugStringConvertible{
+extension Date {
     public override var description:String {
         get{
             let formatter = NSDateFormatter()
