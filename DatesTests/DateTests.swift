@@ -209,10 +209,20 @@ class DateTests: XCTestCase {
     func testDelay() {
         let start = Date()
         let twoSeconds = TimeSpan(seconds: 2)
-        
+        let expectation = expectationWithDescription("delay wait over")
+
         delay(twoSeconds){
             XCTAssertTrue(Date() - start > twoSeconds)
+            expectation.fulfill()
         }
+
+        waitForExpectationsWithTimeout(10){
+            error in
+            if error != nil {
+                XCTFail("error waiting: \(error)")
+            }
+        }
+        
         
     }
     
