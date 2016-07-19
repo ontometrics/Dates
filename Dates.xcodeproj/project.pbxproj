@@ -576,6 +576,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 2.3;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -599,6 +600,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 2.3;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
@@ -621,6 +623,7 @@
 				PRODUCT_NAME = DatesWatch;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -644,6 +647,7 @@
 				PRODUCT_NAME = DatesWatch;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
